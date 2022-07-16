@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, createContext, useEffect } from "react";
 import api from "../services/api";
 
@@ -6,39 +7,39 @@ export const UserContext = createContext();
 export const ContextProvider = (props) => {
   const [userData, setUserData] = useState({});
   const [userRepos, setUserRepos] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
-  //   useEffect(() => {
-  //     (async function getUserData() {
-  //       try {
-  //         const response = await api.get(`/uildez`);
-  //         const repos = await api.get(`/uildez/repos`);
-  //         // const response = await api.get(`/${props.username}`);
-  //         // const repos = await api.get(`/${props.username}/repos`);
-
-  //         setUserData(response.data);
-  //         setUserRepos(repos.data);
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     })();
-  //     getUserData()
-  //   });
+  function searchRepos(e) {
+    e.preventDefault()
+    console.log(searchValue);
+  }
 
   useEffect(() => {
-    const loadPhotos = async () => {
-      await api
-        .get("/uildez")
-        .then((response) => {
-            setUserData(response.data);
-            console.log(response);
-        })
-        .catch((error) => console.log(error));
+    const fetchData = async () => {
+      try {
+        const res = await api.get(`/uildez`);
+        setUserData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
+    fetchData();
+  }, []);
 
-    loadPhotos();
-  },[]);
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        const res = await api.get("/uildez/repos");
+        setUserRepos(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchRepos();
+  }, []);
 
   console.log(userData);
+  console.log(userRepos);
 
   return (
     <UserContext.Provider
@@ -47,6 +48,9 @@ export const ContextProvider = (props) => {
         userRepos,
         setUserData,
         setUserRepos,
+        searchValue,
+        setSearchValue,
+        searchRepos
       }}
     >
       {props.children}

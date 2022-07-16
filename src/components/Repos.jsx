@@ -1,117 +1,44 @@
-import { ArrowSquareOut, Book } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
+
 import { SearchBar } from "./SearchBar";
+import { FilterButton } from "./FilterButton";
+import { ReposItems } from "./ReposItems";
 
-export const buttons = [
-  {
-    name: "Arquivados",
-    value: "arquivados",
-  },
-  {
-    name: "Ordenação alfabética",
-    value: "ordenação alfabética",
-  },
-  {
-    name: "Último commit",
-    value: "ultimoCommit",
-  },
-];
+export const Repos = () => {
+  const [cleanFilters, setCleanFilters] = useState({});
+  const [order, setOrder] = useState({});
+  const [lastCommit, setLastCommit] = useState({});
+  const [archived, setArchived] = useState({});
+  
+  const { userRepos, searchValue } = useContext(UserContext);
 
-// const [filtredRepos, setFiltredRepos] = useState(null);
-// useEffect(() => {
-//   setFiltredRepos(getPokemon());
-// }, []);
-
-// function handlePokemon(e) {
-//   let typePokemon = e.target.value;
-//   typePokemon !== "all"
-//     ? setFiltredRepos(filterPokemon(typePokemon))
-//     : setFiltredRepos(getPokemon());
-// }
-
-export const Repos = (props) => {
   return (
     <div className="flex flex-col items-center">
       <SearchBar />
-      <div className="flex pt-4 w-full justify-around">
-        {buttons &&
-          buttons.map((type, index) => (
-            <>
-              <button
-                key={index}
-                value={type.value}
-                className="bg-red-600 px-8 py-2 rounded-full font-medium"
-              >
-                {type.name}
-              </button>
-            </>
-          ))}
+      <div className="flex space-x-2 mt-6 w-full justify-around">
+        <FilterButton className="" onClick={() => setCleanFilters("")}>Todos</FilterButton>
+        <FilterButton onClick={() => setOrder()}>
+          Ordem Alfabética
+        </FilterButton>
+        <FilterButton onClick={() => setLastCommit()}>
+          Último Commit
+        </FilterButton>
+        <FilterButton onClick={() => setArchived()}>Arquivados</FilterButton>
       </div>
 
-      <ul className="w-full p-4 bg-[#282828] rounded-xl mt-4">
-        <li className="flex justify-between">
-          <div>
-            <span className="flex items-center">
-              <Book size={24} />
-              <h1 className="text-xl pl-2 font-semibold">photobook</h1>
-            </span>
-            <p className="text-sm">Gallery using React TS, Api Pexels and Tailwind CSS</p>
-          </div>
-          <button>
-            <ArrowSquareOut size={32} />
-          </button>
-        </li>
-      </ul>
-      <ul className="w-full p-4 bg-[#282828] rounded-xl mt-4">
-        <li className="flex justify-between">
-          <div>
-            <span className="flex items-center">
-              <Book size={24} />
-              <h1 className="text-xl pl-2 font-semibold">photobook</h1>
-            </span>
-            <p className="text-sm">Gallery using React TS, Api Pexels and Tailwind CSS</p>
-          </div>
-          <button>
-            <ArrowSquareOut size={32} />
-          </button>
-        </li>
-      </ul>
-      <ul className="w-full p-4 bg-[#282828] rounded-xl mt-4">
-        <li className="flex justify-between">
-          <div>
-            <span className="flex items-center">
-              <Book size={24} />
-              <h1 className="text-xl pl-2 font-semibold">photobook</h1>
-            </span>
-            <p className="text-sm">Gallery using React TS, Api Pexels and Tailwind CSS</p>
-          </div>
-          <button>
-            <ArrowSquareOut size={32} />
-          </button>
-        </li>
-      </ul>
-      <ul className="w-full p-4 bg-[#282828] rounded-xl mt-4">
-        <li className="flex justify-between">
-          <div>
-            <span className="flex items-center">
-              <Book size={24} />
-              <h1 className="text-xl pl-2 font-semibold">photobook</h1>
-            </span>
-            <p className="text-sm">Gallery using React TS, Api Pexels and Tailwind CSS</p>
-          </div>
-          <button>
-            <ArrowSquareOut size={32} />
-          </button>
-        </li>
-      </ul>
-
-
-      {/* {filtredRepos &&
-        filtredRepos.map((type) => (
-          <ul key={type.id}>
-            <li>{type.nome}</li>
-          </ul>
-        ))} */}
+      <div className="flex flex-wrap justify-around overflow-y-auto w-full max-h-[350px] mt-4 scrollbar gap-4">
+        {userRepos.filter((value) => {
+          if(searchValue === ""){
+            return value
+          }else if(value.name.toLowerCase().includes(searchValue.toLowerCase())) {
+            return (value)
+          }
+        }).sort()
+        .map((repos) => (
+          <ReposItems data={repos} key={repos.id} />
+        ))}
+      </div>
     </div>
   );
 };
