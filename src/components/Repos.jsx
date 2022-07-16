@@ -16,7 +16,7 @@ export const Repos = () => {
   return (
     <div className="flex flex-col items-center">
       <SearchBar />
-      <div className="flex space-x-2 mt-6 w-full justify-around">
+      <div className="space-x-2 mt-6 w-full justify-around block">
         <FilterButton className="" onClick={() => setCleanFilters("")}>Todos</FilterButton>
         <FilterButton onClick={() => setOrder()}>
           Ordem Alfabética

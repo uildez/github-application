@@ -20,17 +20,17 @@ export const UserInfo = () => {
       <div className="flex gap-8 pt-8 w-full justify-center">
         <div className="text-center" onClick={() => handleOnClick("/repos")}>
           <h1 className="text-2xl font-semibold">{userData.public_repos}</h1>
-          <h2>Repositórios</h2>
+          <h2 className="text-sm">Repositórios</h2>
         </div>
 
         <div className="text-center">
           <h1 className="text-2xl font-semibold">{userData.followers}</h1>
-          <h2>Seguidores</h2>
+          <h2 className="text-sm">Seguidores</h2>
         </div>
 
         <div className="text-center">
           <h1 className="text-2xl font-semibold">{userData.following}</h1>
-          <h2>Seguindo</h2>
+          <h2 className="text-sm">Seguindo</h2>
         </div>
       </div>
     </div>

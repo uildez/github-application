@@ -1,6 +1,6 @@
-import { GithubLogo } from "phosphor-react";
+import { Envelope, GithubLogo, LinkedinLogo } from "phosphor-react";
 import React from "react";
-import { SearchBar } from "./SearchBar";
+// import { SearchBar } from "./SearchBar";
 
 export const Header = () => {
   return (
@@ -11,21 +11,17 @@ export const Header = () => {
       </div>
       <div  className="flex gap-2">
         <a
-          className="bg-red-600 px-8 py-2 rounded-full font-medium text-sm hover:bg-red-700 transition-colors"
-          href="#"
+          className="bg-red-600 px-8 py-2 rounded-full font-medium text-sm hover:bg-red-700 transition-colors flex items-center gap-2"
+          href="https://www.linkedin.com/in/uildes-dem%C3%A9trio/" target="_blank"
         >
+          <LinkedinLogo size={20} />
           LinkedIn
         </a>
         <a
-          className="bg-red-600 px-8 py-2 rounded-full font-medium text-sm hover:bg-red-700 transition-colors"
-          href="#"
+          className="bg-red-600 px-8 py-2 rounded-full font-medium text-sm hover:bg-red-700 transition-colors flex items-center gap-2"
+          href="mailto:uildesdacosta@gmail.com" target="_blank"
         >
-          GitHub
-        </a>
-        <a
-          className="bg-red-600 px-8 py-2 rounded-full font-medium text-sm hover:bg-red-700 transition-colors"
-          href="#"
-        >
+          <Envelope size={20} />
           Gmail
         </a>
       </div>
