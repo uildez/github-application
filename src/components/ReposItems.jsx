@@ -2,17 +2,15 @@ import { ArrowSquareOut, Book } from "phosphor-react";
 import { parseISO, format } from "date-fns";
 
 export const ReposItems = ({ data }) => {
-  const { name, description, html_url, archived, updated_at } = data;
+  const { name, description, html_url, archived, pushed_at } = data;
 
-  const addedDate = parseISO(updated_at);
-
-  format(addedDate, "dd/MM/yyyy HH:mm");
-
-  console.log(addedDate);
+  const [dateValues, timeValues] = pushed_at.split("T");
+  const timeValueSet = timeValues.replace("Z", "");
+  const date = (format(parseISO(dateValues), "dd-MM-yyyy"));
 
   return (
     <>
-      <ul className="w-full p-4 bg-[#282828] rounded-xl mr-4">
+      <ul className="w-full p-4 bg-[#282828] rounded-xl">
         <li className="flex justify-between items-center">
           <div>
             <span className="flex items-center mb-2">
@@ -27,7 +25,7 @@ export const ReposItems = ({ data }) => {
             </span>
             <p className="text-sm mt-4 md:mt-0">{description}</p>
             <span className="text-xs text-red-500">
-              Último Commit: {updated_at}
+              Data: {date} Hora: {timeValueSet}
             </span>
           </div>
           <a href={html_url}>

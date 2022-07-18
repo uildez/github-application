@@ -11,7 +11,7 @@ export const ContextProvider = (props) => {
 
   function searchRepos(e) {
     e.preventDefault()
-    console.log(searchValue);
+    // console.log(searchValue);
   }
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export const ContextProvider = (props) => {
     fetchRepos();
   }, []);
 
-  console.log(userData);
-  console.log(userRepos);
+  // console.log(userData);
+  console.log("UserRepos Print", userRepos);
 
   return (
     <UserContext.Provider
