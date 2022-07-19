@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, createContext, useEffect } from "react";
 import api from "../services/api";
 
@@ -8,10 +7,10 @@ export const ContextProvider = (props) => {
   const [userData, setUserData] = useState({});
   const [userRepos, setUserRepos] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
 
   function searchRepos(e) {
-    e.preventDefault()
-    // console.log(searchValue);
+    e.preventDefault();
   }
 
   useEffect(() => {
@@ -19,6 +18,8 @@ export const ContextProvider = (props) => {
       try {
         const res = await api.get(`/uildez`);
         setUserData(res.data);
+        const resRepos = await api.get("/uildez/repos");
+        setUserRepos(resRepos.data);
       } catch (err) {
         console.log(err);
       }
@@ -26,20 +27,18 @@ export const ContextProvider = (props) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const res = await api.get("/uildez/repos");
-        setUserRepos(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchRepos();
-  }, []);
 
-  // console.log(userData);
-  console.log("UserRepos Print", userRepos);
+  // handle onChange event of the dropdown
+  const handleChange = (e) => {
+    setSelectedOption(e);
+  };
+
+  const data = [
+    { value: 1, label: "All" },
+    { value: 2, label: "Alphabetical order" },
+    { value: 3, label: "Archived" },
+    { value: 4, label: "Last Commit" },
+  ];
 
   return (
     <UserContext.Provider
@@ -50,7 +49,11 @@ export const ContextProvider = (props) => {
         setUserRepos,
         searchValue,
         setSearchValue,
-        searchRepos
+        searchRepos,
+        selectedOption, 
+        setSelectedOption,
+        handleChange,
+        data
       }}
     >
       {props.children}

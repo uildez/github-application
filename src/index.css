@@ -35,3 +35,9 @@ body {
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #FF2234;
 }
+
+.css-1s2u09g-control{
+  border-radius: 20px!important;
+  box-shadow: none!important;
+  border: 0!important;
+}
