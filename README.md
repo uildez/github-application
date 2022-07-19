@@ -1,7 +1,7 @@
 <h1 align="center" color="white">GitHub Application | Listing User Repositories</strong></h1>
 
-<!-- <div align="center"><img src="./src/assets/discography.gif" width="900"/></div> -->
-<h2 align="center"><a color="white" href="">Acess Application</a></h2> 
+<div align="center"><img src="./src/assets/github-application.gif" width="900"/></div>
+<h2 align="center"><a color="white" href="https://github-application.vercel.app/">Acess Application</a></h2> 
 
 ### 📕 About
 **GitHub Application | Listing User Repositories** is an application for querying user repositories through Github's Rest API. Built on Vite Create React Js, TailwindCSS, React Select, Date-FNS, Context API and Axios to perform API requests.
