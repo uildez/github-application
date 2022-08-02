@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 import { SearchBar } from "./SearchBar";
 import { FilterButton } from "./FilterButton";
 
-export const Repos = () => {
+export const ReposMobile = () => {
   const { searchValue, setSearchValue, searchRepos, user, showRepositories } =
     useContext(UserContext);
 
@@ -13,7 +13,7 @@ export const Repos = () => {
       {(function () {
         if (showRepositories === true && user.length > 0) {
           return (
-            <div className="w-2/4 p-[2.2rem] bg-[#343434] rounded-xl min-h-[80%] max-h-[80%] hidden md:block">
+            <div className="w-full p-[2.2rem] bg-[#343434] rounded-xl min-h-[0%] max-h-[100%] block md:hidden">
               <div className="flex flex-col items-center">
                 <SearchBar
                   value={searchValue}

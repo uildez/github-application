@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
+import { UserInfo } from "../components/UserInfo";
 import api from "../services/api";
 
 export const UserContext = createContext();
@@ -7,25 +8,38 @@ export const ContextProvider = (props) => {
   const [userData, setUserData] = useState({});
   const [userRepos, setUserRepos] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [searchUser, setSearchUser] = useState("");
+  const [user, setUser] = useState("");
+  const [showRepositories, setShowRepositories] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   function searchRepos(e) {
     e.preventDefault();
   }
+  
+  function searchUserRepos(e) {
+    e.preventDefault();
+    setUser(searchUser)
+  }
+
+  function handleOnClick(){
+    setShowRepositories(showRepositories => !showRepositories)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get(`/uildez`);
+        const res = await api.get(`${user}`);
         setUserData(res.data);
-        const resRepos = await api.get("/uildez/repos");
+        const resRepos = await api.get(`/${user}/repos`);
         setUserRepos(resRepos.data);
+        console.log(userRepos)
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
 
   // handle onChange event of the dropdown
@@ -50,13 +64,22 @@ export const ContextProvider = (props) => {
         searchValue,
         setSearchValue,
         searchRepos,
+        searchUserRepos,
         selectedOption, 
         setSelectedOption,
         handleChange,
-        data
+        data,
+        searchUser, 
+        setSearchUser,
+        user, 
+        setUser,
+        handleOnClick,
+        showRepositories,
+        setShowRepositories
       }}
     >
       {props.children}
+      {/* {userData && <UserInfo />} */}
     </UserContext.Provider>
   );
 };
